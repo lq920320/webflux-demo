@@ -22,4 +22,11 @@ public class GreetingRouter {
                         .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)),
                 greetingHandler::hello);
     }
+
+    @Bean
+    public RouterFunction<ServerResponse> topicRoute(GreetingHandler greetingHandler) {
+        return RouterFunctions.route(RequestPredicates.PUT("/updateTopic")
+                        .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
+                greetingHandler::updateTopic);
+    }
 }
