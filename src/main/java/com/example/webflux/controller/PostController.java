@@ -17,28 +17,45 @@ public class PostController {
     @Autowired
     private PostRepository posts;
 
-
+    /**
+     * 获取所有数据
+     *
+     * @return 数据列表
+     */
     @GetMapping("")
     public Flux<Post> all() {
         return this.posts.findAll();
     }
 
+    /**
+     * 创建一条数据
+     *
+     * @param post 要创建的数据
+     * @return 已经创建的数据
+     */
     @PostMapping("")
     public Mono<Post> create(@RequestBody Post post) {
         return this.posts.save(post);
     }
 
+    /**
+     * 根据ID获取
+     *
+     * @param id 报告ID
+     * @return 对应ID的数据
+     */
     @GetMapping("/{id}")
     public Mono<Post> get(@PathVariable("id") String id) {
-//        Post post = Post.builder()
-//                .id("2")
-//                .title("titleBCD")
-//                .content("This is the second content.")
-//                .build();
-//        return Mono.just(post);
         return this.posts.findById(id);
     }
 
+    /**
+     * 更新一条数据
+     *
+     * @param id   报告ID
+     * @param post 具体更新的内容
+     * @return 已更新的数据
+     */
     @PutMapping("/{id}")
     public Mono<Post> update(@PathVariable("id") String id, @RequestBody Post post) {
         return this.posts.findById(id)
@@ -50,6 +67,12 @@ public class PostController {
                 .flatMap(this.posts::save);
     }
 
+    /**
+     * 删除一条数据
+     *
+     * @param id 报告ID
+     * @return 没有返回内容
+     */
     @DeleteMapping("/{id}")
     public Mono<Void> delete(@PathVariable("id") String id) {
         return this.posts.deleteById(id);
