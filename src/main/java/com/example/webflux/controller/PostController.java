@@ -1,11 +1,14 @@
 package com.example.webflux.controller;
 
 import com.example.webflux.model.Post;
+import com.example.webflux.model.common.ApiParam;
 import com.example.webflux.service.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 /**
  * @author zetu
@@ -36,6 +39,16 @@ public class PostController {
     @PostMapping("")
     public Mono<Post> create(@RequestBody Post post) {
         return this.posts.save(post);
+    }
+
+    /**
+     * 创建多条数据
+     *
+     * @param param 要创建的数据
+     */
+    @PostMapping("batchSave")
+    public Flux<Post> batchSave(@RequestBody ApiParam<List<Post>> param) {
+        return this.posts.saveAll(param.getData());
     }
 
     /**
