@@ -1,0 +1,21 @@
+# Elasticsearch config
+# ?????????es????????????????
+spring:
+  elasticsearch:
+    uris:localhost:9200
+    socket-timeout:10s
+    username:elastic
+    password:elastic
+logging:
+  level:
+    com:
+      example:DEBUG
+    sql: trace
+    org:
+      springframework:
+        data:
+          elasticsearch:
+            core:
+              ReactiveElasticsearchTemplate:trace
+
+

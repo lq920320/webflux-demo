@@ -1,6 +1,8 @@
 package com.example.webflux;
 
+import com.example.webflux.model.Book;
 import com.example.webflux.model.Post;
+import com.example.webflux.service.BookService;
 import com.example.webflux.service.PostRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,18 @@ import java.util.stream.Collectors;
 class DemoApplicationTests {
 
     @Autowired
+    private BookService bookService;
+
+    @Autowired
     private PostRepository posts;
+
+    @Test
+    public void bookFindById() {
+        String id = "100";
+        Mono<Book> notFound = bookService.findById("100")
+                .switchIfEmpty(Mono.error(new RuntimeException("Not Found by Id:" + id)));
+        notFound.subscribe(System.out::println);
+    }
 
     @Test
     public void testAll() {

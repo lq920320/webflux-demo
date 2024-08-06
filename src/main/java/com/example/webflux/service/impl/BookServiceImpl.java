@@ -45,6 +45,10 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Mono<Book> findById(String id) {
+        if ("100".equals(id)) {
+            // 也可以直接返回空对象
+            return Mono.empty();
+        }
         // 直接返回对象，也可以使用 create() 方法
         return Mono.create(callback -> {
             Book book = Book.builder()
@@ -60,7 +64,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Mono<Book> update(String id, Book book) {
-        return null;
+        return Mono.create(callback -> {
+            Book updateBook = Book.builder()
+                    .id(id)
+                    .name(book.getName())
+                    .author(book.getAuthor())
+                    .build();
+            // 成功的时候返回的结果，success() 方法有一个带参数，一个不带参数
+            // 另外还有 error() 方法，在异常的情况下返回的结果
+            callback.success(updateBook);
+            callback.error(new RuntimeException("update error"));
+        });
     }
 
     @Override

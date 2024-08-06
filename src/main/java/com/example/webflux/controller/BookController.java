@@ -46,7 +46,8 @@ public class BookController {
      */
     @GetMapping("/{id}")
     public Mono<Book> get(@PathVariable("id") String id) {
-        return this.bookService.findById(id);
+        return this.bookService.findById(id)
+                .switchIfEmpty(Mono.error(new RuntimeException("通过ID：" + id + "未找到图书")));
     }
 
     /**

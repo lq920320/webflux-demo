@@ -41,7 +41,12 @@ public class DemoApplication {
 }
 ```
 
-定义 Controller 类，跟正常的 Spring MVC 接口定义一样，唯一的区别就是返回类型不同，只能是 `Mono` 或者 `Flux` 的：
+定义 Controller 类，跟正常的 Spring MVC 接口定义一样，唯一的区别就是返回类型不同，只能是 `Mono` 或者 `Flux` 的:
+
+- **Mono** 是代表一个包含 `零` 个或 `一个元素` 的异步序列。你可以将其视为一种异步的、最多包含一个元素的容器。通常用于处理只会产生一个结果的异步操作。
+- **Flux** 则代表一个包含 `零` 个或 `多个元素` 的异步序列。你可以将其视为一种异步的、可以包含多个元素的容器。通常用于处理多个并行的异步操作或者事件流。
+
+在响应式编程中，Flux和Mono是Reactor库中的两个核心类，用于处理异步数据流。Flux用于处理多个元素的情况，而Mono则用于处理单个元素的情况。
 
 ```java
 
@@ -315,4 +320,24 @@ public class GreetingHandler {
 Hello, Spring WebFlux!
 ```
 
+
+### 链接
+
+- 反应式编程之 Spring WebFlux： https://www.bilibili.com/video/BV1E4411W7Rx
+
+- how to build a reactive web app： https://www.educative.io/blog/spring-webflux-tutorial
+
+- https://docs.spring.io/spring-framework/docs/current/reference/html/web-reactive.html
+
+- Mono： https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
+
+- Flux： https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html
+
+- SpringWebflux与SpringMVC性能对比及适用场景分析： https://juejin.cn/post/6844904138287874055
+
+- 压测对比: Spring WebFlux VS. Spring MVC： https://zhuanlan.zhihu.com/p/172010354
+
+- Spring Boot 2.0 WebFlux 教程 (一) | 入门篇： https://juejin.cn/post/6844903824566517773
+
+- Java I/O模型从BIO到NIO和Reactor模式： http://www.jasongj.com/java/nio_reactor/
 
